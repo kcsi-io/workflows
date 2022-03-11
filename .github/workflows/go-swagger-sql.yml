@@ -1,8 +1,8 @@
 jobs:
-  env:
-    REGISTRY: ghcr.io
-    IMAGE_NAME: ${{ github.repository }}
   build:
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
