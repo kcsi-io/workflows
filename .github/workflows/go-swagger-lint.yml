@@ -1,12 +1,12 @@
+name: Go Swagger Lint
+on: [workflow_call]
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     container: quay.io/goswagger/swagger
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-go@v2
-        with:
-          go-version: "^1.17"
       - run: swagger generate server -f swagger.yml -A ${{ github.event.repository.name }}
       - run: swagger generate client -f swagger.yml -A ${{ github.event.repository.name }}
-      - run: "! git status --porcelain"
+      - run: git diff --exit-code
