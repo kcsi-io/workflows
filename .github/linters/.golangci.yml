@@ -1,0 +1,62 @@
+---
+linters-settings:
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/izimmo/golang-swagger-sql)
+issues:
+  exclude-rules:
+    - path: restapi/configure_golang_swagger_sql.go
+      linters:
+        - lll
+        - deadcode
+linters:
+  enable:
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - contextcheck
+    - cyclop
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - durationcheck
+    - errcheck
+    - errname
+    - errorlint
+    - exhaustive
+    # - exhaustivestruct
+    - exportloopref
+    - forbidigo
+    - gosec
+    - gosimple
+    - govet
+    - ifshort
+    - importas
+    - ineffassign
+    - lll
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+    - nlreturn
+    - noctx
+    - nolintlint
+    - paralleltest
+    - prealloc
+    - predeclared
+    - promlinter
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - tagliatelle
+    - tenv
+    - testpackage
+    - thelper
