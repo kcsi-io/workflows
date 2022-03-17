@@ -1,0 +1,11 @@
+name: SQL to Go Lint
+on: [workflow_call]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container: ghcr.io/thecampagnards/sql-to-go
+    steps:
+      - uses: actions/checkout@v3
+      - run: sql-to-go -sql-file db/migrations/*.up.sql -out internal/db
+      - run: git diff --exit-code
