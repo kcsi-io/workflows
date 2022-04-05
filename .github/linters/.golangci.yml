@@ -10,7 +10,6 @@ issues:
     - path: restapi/configure_golang_swagger_sql.go
       linters:
         - lll
-        - deadcode
 linters:
   enable:
     - asciicheck

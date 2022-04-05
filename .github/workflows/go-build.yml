@@ -18,9 +18,10 @@ jobs:
           CGO_ENABLED: 0
           GOOS: linux
           GOARCH: amd64
+          MAIN_PACKAGE: cmd/*-server/main.go
         run: |
           go test -coverpkg=./... -coverprofile="coverage.out" ./...
-          go build -ldflags="-s -w" -a -tags netgo -o app cmd/*-server/main.go
+          go build -ldflags="-s -w" -a -tags netgo -o app $MAIN_PACKAGE
       # - name: Run codacy-coverage-reporter
       #   uses: codacy/codacy-coverage-reporter-action@v1
       #   with:
