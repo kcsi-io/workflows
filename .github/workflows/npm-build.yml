@@ -5,6 +5,7 @@ on: [workflow_call]
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  PACKAGE_MANAGER: yarn
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,10 +14,12 @@ jobs:
       - uses: actions/setup-node@v3.0.0
         with:
           node-version: "^17"
+      - name: Install Yarn
+        run: npm install -g yarn
+        if: env.PACKAGE_MANAGER == 'yarn'
       - name: Build node
         env:
           CI: true
-          PACKAGE_MANAGER: yarn
         run: |
           $PACKAGE_MANAGER install
           $PACKAGE_MANAGER test
