@@ -21,11 +21,11 @@ jobs:
         run: |
           go test -coverpkg=./... -coverprofile="coverage.out" ./...
           go build -ldflags="-s -w" -a -tags netgo -o app cmd/*-server/main.go
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: coverage.out
+      # - name: Run codacy-coverage-reporter
+      #   uses: codacy/codacy-coverage-reporter-action@v1
+      #   with:
+      #     api-token: ${{ secrets.CODACY_API_TOKEN }}
+      #     coverage-reports: coverage.out
       - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
