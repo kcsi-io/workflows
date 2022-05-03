@@ -4,10 +4,12 @@ on: [workflow_call]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/thecampagnards/sql-to-go:master
     steps:
-      - run: apk add --no-cache git
       - uses: actions/checkout@v3
-      - run: sql-to-go -output-folder internal/db db/migrations/*.up.sql
+      - uses: docker://alpine
+        with:
+          args: ls -lah
+      - uses: docker://ghcr.io/thecampagnards/sql-to-go:master
+        with:
+          args: -output-folder internal/db db/migrations/*.up.sql
       - run: git diff --exit-code

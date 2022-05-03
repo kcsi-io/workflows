@@ -1,14 +1,39 @@
 name: Go Lint
 on: [workflow_call]
 
+env:
+  JS_PACKAGE_MANAGER: yarn
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Lint Code Base
-        uses: github/super-linter/slim@v4
-        env:
-          DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_GO: false # to change when they will fix golang-ci lint version
+        if: hashFiles('package.json') != ''
+      - uses: actions/setup-node@v3.1.1
+        with:
+          node-version: "^17"
+          cache: ${{ env.JS_PACKAGE_MANAGER }}
+        if: hashFiles('package.json') != ''
+      - name: Install Yarn
+        run: npm install -g yarn
+        if: hashFiles('package.json') != '' && env.JS_PACKAGE_MANAGER == 'yarn'
+      - name: Install JS Dependencies
+        run: |
+          case $JS_PACKAGE_MANAGER in
+            yarn)
+              yarn install --frozen-lockfile
+              ;;
+            npm)
+              npm ci
+              ;;
+            *)
+              $JS_PACKAGE_MANAGER install
+              ;;
+          esac
+        if: hashFiles('package.json') != ''
+      # - name: Lint Code Base
+      #   uses: github/super-linter/slim@v4
+      #   env:
+      #     DEFAULT_BRANCH: main
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     LINTER_RULES_PATH: '.'

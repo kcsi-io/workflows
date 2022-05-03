@@ -1,26 +1,42 @@
 
-name: Go Swagger SQL Build
+name: NPM Build
 on: [workflow_call]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  JS_PACKAGE_MANAGER: yarn
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-node@v3.1.1
         with:
-          go-version: "^1.18"
-      - name: Build go
+          node-version: "^17"
+          cache: 'npm'
+      - name: Install Yarn
+        run: npm install -g yarn
+        if: env.PACKAGE_MANAGER == 'yarn'
+      - name: Build node
         env:
-          CGO_ENABLED: 0
-          GOOS: linux
-          GOARCH: amd64
+          CI: true
         run: |
-          go test -coverpkg=./... -coverprofile="coverage.out" ./...
-          go build -ldflags="-s -w" -a -tags netgo -o app cmd/*-server/main.go
+          case $JS_PACKAGE_MANAGER in
+            yarn)
+              yarn install --frozen-lockfile
+              ;;
+            npm)
+              npm ci
+              ;;
+            *)
+              $JS_PACKAGE_MANAGER install
+              ;;
+          esac
+          $JS_PACKAGE_MANAGER run lint
+          git diff --exit-code
+          $JS_PACKAGE_MANAGER test
+          $JS_PACKAGE_MANAGER run build
       # - name: Run codacy-coverage-reporter
       #   uses: codacy/codacy-coverage-reporter-action@v1
       #   with:
