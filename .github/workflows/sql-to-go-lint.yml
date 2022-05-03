@@ -7,7 +7,7 @@ jobs:
     container:
       image: ghcr.io/thecampagnards/sql-to-go:master
     steps:
-      - run: apk add git
+      - run: apk add --no-cache git
       - uses: actions/checkout@v3
       - run: sql-to-go -output-folder internal/db db/migrations/*.up.sql
       - run: git diff --exit-code
