@@ -1,4 +1,4 @@
-name: Go Lint
+name: Super Lint
 on: [workflow_call]
 
 env:

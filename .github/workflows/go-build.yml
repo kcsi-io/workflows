@@ -1,4 +1,3 @@
-
 name: Go Swagger SQL Build
 on: [workflow_call]
 

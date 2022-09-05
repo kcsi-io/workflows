@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Hello world action step
+      - name: SQL to Go
         uses: thecampagnards/sql-to-go@master
         with:
           sql-files: db/migrations/*.up.sql

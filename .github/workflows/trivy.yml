@@ -1,8 +1,8 @@
-name: Go Lint
+name: Trivy
 on: [workflow_call]
 
 jobs:
-  analyse:
+  analyze:
     runs-on: ubuntu-latest
     steps:
       # - name: Run Codacy Analysis CLI
