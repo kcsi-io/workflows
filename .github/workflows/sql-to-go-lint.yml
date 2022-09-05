@@ -6,10 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: docker://alpine
+      - name: Hello world action step
+        uses: thecampagnards/sql-to-go@master
         with:
-          args: ls -lah
-      - uses: docker://ghcr.io/thecampagnards/sql-to-go:master
-        with:
-          args: -output-folder internal/db db/migrations/*.up.sql
+          sql-files: db/migrations/*.up.sql
+          output-folder: internal/db
       - run: git diff --exit-code

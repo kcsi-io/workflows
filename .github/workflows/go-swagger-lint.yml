@@ -4,7 +4,9 @@ on: [workflow_call]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    container: quay.io/goswagger/swagger
+    container:
+      image: quay.io/goswagger/swagger
+      options: --user root
     steps:
       - uses: actions/checkout@v3
       - run: swagger generate server -f swagger.yml -A ${{ github.event.repository.name }}

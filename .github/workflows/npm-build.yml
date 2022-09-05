@@ -17,7 +17,7 @@ jobs:
           cache: 'npm'
       - name: Install Yarn
         run: npm install -g yarn
-        if: env.PACKAGE_MANAGER == 'yarn'
+        if: env.JS_PACKAGE_MANAGER == 'yarn'
       - name: Build node
         env:
           CI: true
