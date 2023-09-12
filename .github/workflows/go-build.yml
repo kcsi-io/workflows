@@ -27,7 +27,7 @@ jobs:
       #     api-token: ${{ secrets.CODACY_API_TOKEN }}
       #     coverage-reports: coverage.out
       - name: Login to the Container registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
